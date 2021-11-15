@@ -1,0 +1,63 @@
+version: '3'
+
+volumes:
+  local_mysql_data: {}
+  local_mysql_data_backups: {}
+
+services:
+  django:
+    build:
+      context: .
+      dockerfile: ./compose/local/django/Dockerfile
+    image: avanan_local_django
+    container_name: django
+    depends_on:
+      - mysql
+    volumes:
+      - .:/app:z
+    env_file:
+      - ./.envs/.django
+      - ./.envs/.mysql
+    ports:
+      - "8000:8000"
+    command: /start
+
+  dpl:
+    build:
+      context: .
+      dockerfile: ./compose/local/dpl/Dockerfile
+    image: avanan_local_dpl
+    container_name: dpl
+    depends_on:
+      - django
+    env_file:
+      - ./.envs/.django
+      - ./.envs/.mysql
+    command: /start
+
+  mysql:
+    image: mysql:5.7.36
+    container_name: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    volumes:
+      - local_mysql_data:/var/lib/mysql:Z
+      - local_mysql_data_backups:/backups:z
+    env_file:
+      - ./.envs/.mysql
+
+  docs:
+    image: avanan_local_docs
+    container_name: docs
+    build:
+      context: .
+      dockerfile: ./compose/local/docs/Dockerfile
+    env_file:
+      - ./.envs/.django
+    volumes:
+      - ./docs:/docs:z
+      - ./config:/app/config:z
+      - ./avanan:/app/avanan:z
+    ports:
+      - "7000:7000"
+    command: /start-docs

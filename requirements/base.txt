@@ -1,0 +1,17 @@
+pytz==2021.1  # https://github.com/stub42/pytz
+Pillow==8.2.0  # https://github.com/python-pillow/Pillow
+argon2-cffi==20.1.0  # https://github.com/hynek/argon2_cffi
+uvicorn[standard]==0.14.0  # https://github.com/encode/uvicorn
+
+# Django
+# ------------------------------------------------------------------------------
+django==3.1.13  # pyup: < 3.2  # https://www.djangoproject.com/
+django-environ==0.4.5  # https://github.com/joke2k/django-environ
+django-allauth==0.44.0  # https://github.com/pennersr/django-allauth
+django-crispy-forms==1.12.0  # https://github.com/django-crispy-forms/django-crispy-forms
+# Django REST Framework
+djangorestframework==3.12.4  # https://github.com/encode/django-rest-framework
+django-cors-headers==3.7.0 # https://github.com/adamchainz/django-cors-headers
+boto3==1.20.5
+mysqlclient==2.0.2
+slack_bolt==1.10.0
