@@ -107,12 +107,13 @@ class ProcessManager:
                 leak = True
                 notify_django = True
             elif event.get("files"):
-                if event["files"].get("preview") and pattern.match(event["files"]["preview"]):
-                    leak = True
-                    notify_django = True
-                elif event["files"].get("name") and pattern.match(event["files"]["name"]):
-                    leak = True
-                    notify_django = True
+                for file in event["files"]:
+                    if file.get("preview") and pattern.match(file["preview"]):
+                        leak = True
+                        notify_django = True
+                    elif file.get("name") and pattern.match(file["name"]):
+                        leak = True
+                        notify_django = True
             if leak:
                 await self.execute_sql(insert_command)
         if notify_django:
