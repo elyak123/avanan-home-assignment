@@ -150,5 +150,5 @@ Docker
 
 Assuming that docker and docker compose are already installed and available in your ``PATH``, once the environment variables in its place, you could run::
 
-    $ docker-compose up -f production.yml
+    $ docker-compose -f production.yml up --build
 
