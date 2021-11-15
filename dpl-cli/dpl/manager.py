@@ -101,7 +101,7 @@ class ProcessManager:
             pattern = re.compile(line[3])
             leak = False
             insert_command = f"""
-                INSERT INTO dpl_leak (message, channel, pattern_id) VALUES ('{event['text']}', '{event['channel']}', '{line[0]}');
+                INSERT INTO dpl_leak (message, channel, pattern_id) VALUES ('{event.get('text')}', '{event['channel']}', '{line[0]}');
             """
             if event.get("text") and pattern.match(event.get("text")):
                 leak = True
